@@ -1,11 +1,43 @@
+import wollok.game.*
+import direcciones.*
+import colores.*
+import paredess.*
+
 
 class Corsa {
-	var color
+	var color 
+	var property position = new Position(x=0,y=0) // game.at(0,0) // game.origin()
+	var property image = color.image()
+	const posiciones = [self.position()]
 	
 	method capacidad() = 4
 	method velocidad() = 150
 	method peso() = 1300
 	method color() = color
+	
+	method moverseHacia(direccion) {
+		position = direccion.nuevaUbicacion(position)
+		posiciones.add(position)
+	}
+	
+	method pasoPor(posicion) = posiciones.contains(posicion)
+	
+	method pasoPorFila(numero) = self.filasPorLasQuePaso().contains(numero)
+	method filasPorLasQuePaso() = posiciones.map({p=>p.x()})
+	
+	method recorrioFilas(lista_de_numeros) = 
+		lista_de_numeros.asSet().intersection(self.filasPorLasQuePaso().asSet()) == lista_de_numeros.asSet()
+//		lista_de_numeros.asSet().difference(self.filasPorLasQuePaso().asSet()) == #{}
+
+	method chocarContra(unaPared) {
+		unaPared.impacto()
+		if(unaPared.resistencia() != 0) {
+			self.position(posiciones.get(posiciones.size()-2))
+			posiciones.add(position)
+		}
+	}
+	
+	method impacto() {}
 }
 
 class Kwid {
