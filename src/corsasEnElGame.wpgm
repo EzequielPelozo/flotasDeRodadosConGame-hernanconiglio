@@ -3,6 +3,7 @@ import direcciones.*
 import wollok.game.*
 import colores.*
 import paredess.*
+import tiles.*
 
 program corsasEnElGame {
 	game.title("Metiendo un Corsa en el game")
@@ -18,6 +19,7 @@ program corsasEnElGame {
 	const pared2 = new Pared()
 	const pared3 = new Pared()
 	const pared4 = new Pared()
+	
 	
 	
 	keyboard.up().onPressDo ({autoActivo.moverseHacia(norte)})	
@@ -40,6 +42,12 @@ program corsasEnElGame {
 	game.addVisual(pared2)
 	game.addVisual(pared3)
 	game.addVisual(pared4)
+	
+		//prueba
+	var tile = new Tile()
+	game.addVisual(tile)
+	 // cada medio segundo cambio imagen
+    game.onTick(500, "movimiento", { tile.cambiarImagenes() })
 	
 	game.onCollideDo(autoActivo,{cosa => autoActivo.chocarContra(cosa)})
 	

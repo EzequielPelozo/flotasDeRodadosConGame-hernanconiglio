@@ -9,6 +9,7 @@ class Corsa {
 	var property position = new Position(x=0,y=0) // game.at(0,0) // game.origin()
 	var property image = color.image()
 	const posiciones = [self.position()]
+	const property resistencia = -1
 	
 	method capacidad() = 4
 	method velocidad() = 150
@@ -29,15 +30,17 @@ class Corsa {
 		lista_de_numeros.asSet().intersection(self.filasPorLasQuePaso().asSet()) == lista_de_numeros.asSet()
 //		lista_de_numeros.asSet().difference(self.filasPorLasQuePaso().asSet()) == #{}
 
-	method chocarContra(unaPared) {
-		unaPared.impacto()
-		if(unaPared.resistencia() != 0) {
+	method chocarContra(otro) {
+		otro.impacto()
+		if(otro.resistencia() != 0 ) {
 			self.position(posiciones.get(posiciones.size()-2))
 			posiciones.add(position)
 		}
 	}
 	
-	method impacto() {}
+	method impacto() {
+		
+	}
 }
 
 class Kwid {
